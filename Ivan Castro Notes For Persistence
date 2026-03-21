@@ -1,0 +1,60 @@
+1) Added JPA + Hibernate Dependencies [pom.xml]
+2) created persistence.xml [Milestone2/src/test/META-INF/persistence.xml]
+    - create the DB file automatically
+    - auto create table too
+    - print SQL (fordebug)
+
+3) JpaUtil
+    - singleton EntityManagerFactory
+    - creates one factory for the whole app
+    - EM
+4) Model
+4.1 Guest.java [com.transylvania.model]
+    - guest data for the guest table
+4.2 RoomType.java [com.transylvania.model]
+    - for database = needed for my persistence
+4.3 Room.java
+    - number, status, and roomtype [foreign key]
+4.4 Reservation.java
+    - main booking record (date, count, Guest, Room)
+
+
+
+Notes:
+@Id = primary key
+@GeneratedValue = auto increment
+@Column = column name
+
+I used Long instead of int because Long can be null
+
+5) Database working = tested using TestConnection and confirmed that the hard coded guest
+    is listed in the booking.db file using IntelliJ plugin to read file
+    [booking.db -> expand table -> guest]
+
+6) Service:
+
+6.1 ReservationService - save logic to a service class
+
+
+HOW TO TEST:
+Run TestConnection file...
+If there are errors, make sure the booking.db file is deleted to reset values/duplicates
+
+example output:
+Hibernate: create table add_on (add_on_id integer, name varchar(255) not null, price float not null, pricing_type varchar(255) not null, primary key (add_on_id))
+Hibernate: create table guest (guest_id integer, email varchar(255) not null unique, first_name varchar(255) not null, last_name varchar(255) not null, phone varchar(255) not null unique, primary key (guest_id))
+Hibernate: create table reservation (reservation_id integer, adults integer not null, check_in_date date not null, check_out_date date not null, children integer not null, status varchar(255) not null, guest_id bigint not null, room_id bigint not null, primary key (reservation_id))
+Hibernate: create table reservation_add_on (reservation_add_on_id integer, quantity integer not null, add_on_id bigint not null, reservation_id bigint not null, primary key (reservation_add_on_id))
+Hibernate: create table room (room_id integer, room_number integer not null, status varchar(255) not null, room_type_id bigint not null, primary key (room_id))
+Hibernate: create table room_type (room_type_id integer, base_price float not null, capacity integer not null, type_name varchar(255) not null, primary key (room_type_id))
+Hibernate: alter table guest drop constraint UK_l30f0fvs78rfwtjbim6nqo2cp
+Hibernate: alter table guest add constraint UK_l30f0fvs78rfwtjbim6nqo2cp unique (email)
+Hibernate: alter table guest drop constraint UK_jtbm3oqi55875fx569d7b31x
+Hibernate: alter table guest add constraint UK_jtbm3oqi55875fx569d7b31x unique (phone)
+Hibernate: insert into guest (email,first_name,last_name,phone) values (?,?,?,?)
+Hibernate: insert into room_type (base_price,capacity,type_name) values (?,?,?)
+Hibernate: insert into room (room_number,room_type_id,status) values (?,?,?)
+Hibernate: insert into reservation (adults,check_in_date,check_out_date,children,guest_id,room_id,status) values (?,?,?,?,?,?,?)
+Reservation saved from service
+
+7) Repositories: handles DB operations, separated db logic from service
