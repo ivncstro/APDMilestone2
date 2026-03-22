@@ -5,6 +5,9 @@ import com.transylvania.model.AddOn;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 
+import java.util.Collections;
+import java.util.List;
+
 public class AddOnRepository {
 
     public void save(AddOn addOn) {
@@ -24,4 +27,19 @@ public class AddOnRepository {
             em.close();
         }
     }
+
+    public List<AddOn> findAll() {
+        EntityManager em = JpaUtil.getEntityManager();
+        try {
+            return em.createQuery(
+                            "SELECT a FROM AddOn a ORDER BY a.name ASC", AddOn.class)
+                    .getResultList();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Collections.emptyList();
+        } finally {
+            em.close();
+        }
+    }
 }
+
