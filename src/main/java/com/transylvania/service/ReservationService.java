@@ -24,10 +24,10 @@ public class ReservationService {
             Guest guest = new Guest("Jane", "Smith", "jane_service@email.com", "4444444444");
             em.persist(guest);
 
-            RoomType roomType = new RoomType("Double", 4, 180.0);
+            RoomType roomType = RoomFactory.createRoomType("Double",4,180);
             em.persist(roomType);
 
-            Room room = new Room(102, "AVAILABLE", roomType);
+            Room room = RoomFactory.createroom(102,"AVAILABLE",roomType);
             em.persist(room);
 
             Reservation reservation = new Reservation(
