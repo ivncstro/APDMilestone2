@@ -1,4 +1,4 @@
-package com.transylvania.factory;
+package com.transylvania.model;
 
 import com.transylvania.model.Room;
 import com.transylvania.model.RoomType;
