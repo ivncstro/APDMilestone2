@@ -56,4 +56,17 @@ public class RoomRepository {
             em.close();
         }
     }
+
+    // added to check if database has the rooms
+    public List<Room> findAll() {
+        EntityManager em = JpaUtil.getEntityManager();
+        try {
+            return em.createQuery("SELECT r FROM Room r", Room.class).getResultList();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Collections.emptyList();
+        } finally {
+            em.close();
+        }
+    }
 }
