@@ -15,7 +15,7 @@ import java.util.StringJoiner;
 
 public class KioskTotal implements BookingAware {
 
-    private static final double TAX_RATE = 0.13; // 13 %
+    private static final double TAX_RATE = 0.13;
 
     @FXML private TextArea roomsSummaryArea;
     @FXML private TextArea addonsSummaryArea;
@@ -47,7 +47,7 @@ public class KioskTotal implements BookingAware {
         roomsSummaryArea.setText(roomLine);
         roomsSummaryArea.setEditable(false);
 
-        // add ob
+        // add on
         StringJoiner sj = new StringJoiner("\n");
         if (bookingRequest.getSelectedAddOns().isEmpty()) {
             sj.add("None selected");

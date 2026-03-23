@@ -12,7 +12,5 @@ public class App extends Application {
         SceneNavigator.setPrimaryStage(stage);
         stage.setTitle("Hotel Transilvania Kiosk");
         SceneNavigator.goToKioskMain();
-        new ReservationService().saveTestReservation();
     }
-
 }

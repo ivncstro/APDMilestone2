@@ -79,7 +79,7 @@ public class KioskFeedback implements BookingAware {
             return;
         }
 
-        // logs and shows success (TODO input to DB)
+        // logs and shows success
         System.out.printf("Feedback submitted: phone=%s, rating=%d, visitAgain=%b, comments=%s%n",
                 phone, currentRating, visitAgain, comments);
 
