@@ -10,7 +10,7 @@ public class App extends Application {
     @Override
     public void start(Stage stage) {
         SceneNavigator.setPrimaryStage(stage);
-        stage.setTitle("Hotel Transilvania Kiosk");
+        stage.setTitle("Hotel Transylvania Kiosk");
         SceneNavigator.goToKioskMain();
     }
 }
