@@ -18,8 +18,6 @@
 4.4 Reservation.java
     - main booking record (date, count, Guest, Room)
 
-
-
 Notes:
 @Id = primary key
 @GeneratedValue = auto increment
@@ -59,6 +57,9 @@ Reservation saved from service
 
 7) Repositories: handles DB operations, separated db logic from service
 
-
 8) extended a branch for work.
     - added branch so we dont overlap
+
+03.22.26
+- since errors after picking rooms, I added seedRooms() to init db with the rooms and room type
+- identified the issue where kiosk flow returns no rooms because empty db
