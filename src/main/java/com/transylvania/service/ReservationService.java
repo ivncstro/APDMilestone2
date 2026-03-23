@@ -14,46 +14,6 @@ import java.util.Map;
 
 public class ReservationService {
 
-    public void saveTestReservation() {
-        EntityManager em = JpaUtil.getEntityManager();
-        EntityTransaction tx = em.getTransaction();
-
-        try {
-            tx.begin();
-
-            Guest guest = new Guest("Jane", "Smith", "jane_service@email.com", "4444444444");
-            em.persist(guest);
-
-            RoomType roomType = RoomFactory.createRoomType("Double",4,180);
-            em.persist(roomType);
-
-            Room room = RoomFactory.createroom(102,"AVAILABLE",roomType);
-            em.persist(room);
-
-            Reservation reservation = new Reservation(
-                    LocalDate.now(),
-                    LocalDate.now().plusDays(2),
-                    "BOOKED",
-                    2,
-                    0,
-                    guest,
-                    room
-            );
-            em.persist(reservation);
-
-            tx.commit();
-            System.out.println("Reservation saved from service");
-
-        } catch (Exception e) {
-            if (tx.isActive()) {
-                tx.rollback();
-            }
-            e.printStackTrace();
-        } finally {
-            em.close();
-        }
-    }
-
     //confirm booking screen
     public String confirmBooking(BookingRequest request) {
         GuestRepository guestRepo = new GuestRepository();
