@@ -15,7 +15,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<HBox prefHeight="900" prefWidth="1400" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
+<HBox prefHeight="900" prefWidth="1400" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.transylvania.controller.AdminLoginController">
    <HBox>
       <children>
           <VBox alignment="CENTER" prefWidth="600" spacing="24" style="-fx-background-color: #16213e; -fx-padding: 60;">

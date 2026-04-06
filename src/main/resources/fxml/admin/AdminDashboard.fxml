@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1400.0" style="-fx-background-color: #ecf0f1;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1400.0" style="-fx-background-color: #ecf0f1;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.transylvania.controller.AdminDashboardController">
     <center>
         <VBox spacing="20.0" style="-fx-background-color: #1a1a2e; -fx-padding: 20;">
             <children>
@@ -32,45 +32,45 @@
                         </Label>
                         <HBox alignment="CENTER_LEFT" spacing="10.0">
                             <children>
-                                <TextField promptText="Name / Phone / Email" HBox.hgrow="ALWAYS" />
-                                <DatePicker promptText="Check-in from" />
-                                <DatePicker promptText="Check-in to" />
-                                <ComboBox prefWidth="120.0" promptText="Status" />
-                                <Button mnemonicParsing="false" style="-fx-background-color: #4a6fa5; -fx-text-fill: white; -fx-background-radius: 5;" text="Search" />
-                                <Button mnemonicParsing="false" style="-fx-background-color: white; -fx-border-color: #b0bec5; -fx-border-radius: 5;" text="Clear" />
+                                <TextField fx:id="searchField" promptText="Name / Phone / Email" HBox.hgrow="ALWAYS" />
+                                <DatePicker fx:id="checkInFromPicker" promptText="Check-in from" />
+                                <DatePicker fx:id="checkInToPicker" promptText="Check-in to" />
+                                <ComboBox fx:id="statusCombo" prefWidth="120.0" promptText="Status" />
+                                <Button mnemonicParsing="false" onAction="#handleSearch" style="-fx-background-color: #4a6fa5; -fx-text-fill: white; -fx-background-radius: 5;" text="Search" />
+                                <Button mnemonicParsing="false" onAction="#handleClear" style="-fx-background-color: white; -fx-border-color: #b0bec5; -fx-border-radius: 5;" text="Clear" />
                             </children>
                         </HBox>
                         <HBox spacing="10.0">
                             <children>
-                                <Button mnemonicParsing="false" style="-fx-background-color: #27ae60; -fx-background-radius: 5;" text="+ New Reservation">
+                                <Button mnemonicParsing="false" onAction="#handleNewReservation" style="-fx-background-color: #27ae60; -fx-background-radius: 5;" text="+ New Reservation">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font></Button>
-                        <Button mnemonicParsing="false" style="-fx-background-color: #ff1414; -fx-background-radius: 5;" text="- Delete Reservation" textFill="WHITE">
+                        <Button mnemonicParsing="false" onAction="#handleDeleteReservation" style="-fx-background-color: #ff1414; -fx-background-radius: 5;" text="- Delete Reservation" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>
                         </Button>
-                                <Button mnemonicParsing="false" style="-fx-background-color: #f39c12; -fx-background-radius: 5;" text="Edit Reservation">
+                                <Button mnemonicParsing="false" onAction="#handleEditReservation" style="-fx-background-color: #f39c12; -fx-background-radius: 5;" text="Edit Reservation">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font></Button>
                             </children>
                         </HBox>
-                        <TableView prefHeight="565.0" prefWidth="1097.0" style="-fx-border-color: #e2b96f; -fx-background-color: #1a1a2e; -fx-border-radius: 5;">
+                        <TableView fx:id="reservationTable" prefHeight="565.0" prefWidth="1097.0" style="-fx-border-color: #e2b96f; -fx-background-color: #1a1a2e; -fx-border-radius: 5;">
                             <columns>
-                                <TableColumn prefWidth="112.0" text="ReservationID" />
-                                <TableColumn prefWidth="81.0" text="Guest" />
-                                <TableColumn prefWidth="76.66668701171875" text="Phone" />
-                                <TableColumn prefWidth="101.0" text="Check-in" />
-                                <TableColumn prefWidth="83.33331298828125" text="Check-out" />
-                                <TableColumn prefWidth="63.33331298828125" text="Rooms" />
-                                <TableColumn prefWidth="90.66668701171875" text="Total" />
-                                <TableColumn prefWidth="98.0" text="Balance / Due" />
-                                <TableColumn minWidth="0.0" prefWidth="70.99993896484375" text="Status" />
-                        <TableColumn prefWidth="74.3333740234375" text="Discount" />
-                        <TableColumn prefWidth="133.666748046875" text="Payment Method" />
-                        <TableColumn prefWidth="127.333251953125" text="Loyalty Member" />
+                                <TableColumn fx:id="reservationIdColumn" prefWidth="112.0" text="ReservationID" />
+                                <TableColumn fx:id="guestColumn" prefWidth="81.0" text="Guest" />
+                                <TableColumn fx:id="phoneColumn" prefWidth="76.66668701171875" text="Phone" />
+                                <TableColumn fx:id="checkInColumn" prefWidth="101.0" text="Check-in" />
+                                <TableColumn fx:id="checkOutColumn" prefWidth="83.33331298828125" text="Check-out" />
+                                <TableColumn fx:id="roomsColumn" prefWidth="120.0" text="Rooms" />
+                                <TableColumn fx:id="totalColumn" prefWidth="90.66668701171875" text="Total" />
+                                <TableColumn fx:id="balanceColumn" prefWidth="98.0" text="Balance / Due" />
+                                <TableColumn fx:id="statusColumn" minWidth="0.0" prefWidth="70.99993896484375" text="Status" />
+                        <TableColumn fx:id="discountColumn" prefWidth="74.3333740234375" text="Discount" />
+                        <TableColumn fx:id="paymentMethodColumn" prefWidth="133.666748046875" text="Payment Method" />
+                        <TableColumn fx:id="loyaltyColumn" prefWidth="127.333251953125" text="Loyalty Member" />
                             </columns>
                             <placeholder>
                                 <Label prefHeight="30.0" prefWidth="118.0" text="No reservations found" textFill="#7f8c8d" />
@@ -78,7 +78,7 @@
                         </TableView>
                         <HBox alignment="CENTER" spacing="15.0">
                             <children>
-                        <Button mnemonicParsing="false" style="-fx-background-color: #2d3748; -fx-background-radius: 20; -fx-padding: 10 30;" text="Back" textFill="WHITE">
+                        <Button mnemonicParsing="false" onAction="#goBack" style="-fx-background-color: #2d3748; -fx-background-radius: 20; -fx-padding: 10 30;" text="Back" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="15.0" />
                            </font>
@@ -113,39 +113,39 @@
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font></Button>
-                  <Button mnemonicParsing="false" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-alignment: BASELINE_LEFT;" text="Waitlist">
+                  <Button mnemonicParsing="false" onAction="#goToWaitlist" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-alignment: BASELINE_LEFT;" text="Waitlist">
                      <font>
                         <Font size="15.0" />
                      </font>
                   </Button>
-                       <Button mnemonicParsing="false" style="-fx-background-color: transparent; -fx-alignment: BASELINE_LEFT;" text="Loyalty Program" textFill="WHITE">
+                       <Button mnemonicParsing="false" onAction="#goToLoyalty" style="-fx-background-color: transparent; -fx-alignment: BASELINE_LEFT;" text="Loyalty Program" textFill="WHITE">
                      <font>
                         <Font size="15.0" />
                      </font></Button>
-                       <Button mnemonicParsing="false" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-alignment: BASELINE_LEFT;" text="Reports">
+                       <Button mnemonicParsing="false" onAction="#goToReports" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-alignment: BASELINE_LEFT;" text="Reports">
                      <font>
                         <Font size="15.0" />
                      </font></Button>
-                       <Button mnemonicParsing="false" prefHeight="31.0" prefWidth="130.0" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-alignment: BASELINE_LEFT;" text="Activity Log">
+                       <Button mnemonicParsing="false" onAction="#goToLog" prefHeight="31.0" prefWidth="130.0" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-alignment: BASELINE_LEFT;" text="Activity Log">
                      <font>
                         <Font size="15.0" />
                      </font></Button>
-                  <Button mnemonicParsing="false" style="-fx-background-color: transparent; -fx-alignment: BASELINE_LEFT;" text="Payment" textFill="WHITE">
+                  <Button mnemonicParsing="false" onAction="#goToPayment" style="-fx-background-color: transparent; -fx-alignment: BASELINE_LEFT;" text="Payment" textFill="WHITE">
                      <font>
                         <Font size="15.0" />
                      </font>
                   </Button>
-                  <Button mnemonicParsing="false" style="-fx-background-color: transparent; -fx-alignment: BASELINE_LEFT;" text="Seasonal Discounts" textFill="WHITE">
+                  <Button mnemonicParsing="false" onAction="#goToDiscounts" style="-fx-background-color: transparent; -fx-alignment: BASELINE_LEFT;" text="Seasonal Discounts" textFill="WHITE">
                      <font>
                         <Font size="15.0" />
                      </font>
                   </Button>
-                  <Button mnemonicParsing="false" style="-fx-background-color: transparent; -fx-alignment: BASELINE_LEFT;" text="Feedback" textFill="WHITE">
+                  <Button mnemonicParsing="false" onAction="#goToFeedback" style="-fx-background-color: transparent; -fx-alignment: BASELINE_LEFT;" text="Feedback" textFill="WHITE">
                      <font>
                         <Font size="15.0" />
                      </font>
                   </Button>
-                  <Button mnemonicParsing="false" style="-fx-background-radius: 5; -fx-background-color: #16213e; -fx-border-color: #e2b96f; -fx-border-radius: 10;" text="Logout" textFill="WHITE">
+                  <Button mnemonicParsing="false" onAction="#logout" style="-fx-background-radius: 5; -fx-background-color: #16213e; -fx-border-color: #e2b96f; -fx-border-radius: 10;" text="Logout" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>

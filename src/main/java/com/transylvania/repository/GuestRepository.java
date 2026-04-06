@@ -45,4 +45,43 @@ public class GuestRepository {
             em.close();
         }
     }
+
+    public Optional<Guest> findByPhone(String phone) {
+        EntityManager em = JpaUtil.getEntityManager();
+        try {
+            List<Guest> results = em.createQuery(
+                            "SELECT g FROM Guest g WHERE g.phone = :phone", Guest.class)
+                    .setParameter("phone", phone)
+                    .setMaxResults(1)
+                    .getResultList();
+            return results.isEmpty() ? Optional.empty() : Optional.of(results.getFirst());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Optional.empty();
+        } finally {
+            em.close();
+        }
+    }
+
+    public Guest saveOrUpdate(Guest guest) {
+        EntityManager em = JpaUtil.getEntityManager();
+        EntityTransaction tx = em.getTransaction();
+
+        try {
+            tx.begin();
+            Guest managed = guest.getGuestId() == null ? guest : em.merge(guest);
+            if (guest.getGuestId() == null) {
+                em.persist(managed);
+            }
+            tx.commit();
+            return managed;
+        } catch (Exception e) {
+            if (tx.isActive()) {
+                tx.rollback();
+            }
+            throw new RuntimeException("Failed to save guest", e);
+        } finally {
+            em.close();
+        }
+    }
 }
