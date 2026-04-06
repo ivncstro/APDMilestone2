@@ -14,7 +14,13 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1400.0" style="-fx-background-color: #ecf0f1;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+            prefHeight="900.0" prefWidth="1400.0"
+            style="-fx-background-color: #ecf0f1;"
+            xmlns="http://javafx.com/javafx/25"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.transylvania.controller.AdminsReportsController">
+
     <left>
         <HBox>
             <children>
@@ -29,62 +35,67 @@
 
                         <Label style="-fx-font-weight: bold; -fx-text-fill: #bdc3c7;" text="MAIN" />
                         <Button mnemonicParsing="false" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-alignment: BASELINE_LEFT;" text="Dashboard">
-                     <font>
-                        <Font size="15.0" />
-                     </font></Button>
-                  <Button mnemonicParsing="false" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-alignment: BASELINE_LEFT;" text="Waitlist">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                  </Button>
+                            <font>
+                                <Font size="15.0" />
+                            </font>
+                        </Button>
+                        <Button mnemonicParsing="false" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-alignment: BASELINE_LEFT;" text="Waitlist">
+                            <font>
+                                <Font size="15.0" />
+                            </font>
+                        </Button>
                         <Button mnemonicParsing="false" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-alignment: BASELINE_LEFT;" text="Loyalty Program">
-                     <font>
-                        <Font size="15.0" />
-                     </font></Button>
+                            <font>
+                                <Font size="15.0" />
+                            </font>
+                        </Button>
                         <Button mnemonicParsing="false" style="-fx-background-color: #e2b96f; -fx-alignment: BASELINE_LEFT;" text="Reports">
-                     <font>
-                        <Font name="System Bold" size="15.0" />
-                     </font></Button>
+                            <font>
+                                <Font name="System Bold" size="15.0" />
+                            </font>
+                        </Button>
                         <Button mnemonicParsing="false" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-alignment: BASELINE_LEFT;" text="Activity Log">
-                     <font>
-                        <Font size="15.0" />
-                     </font></Button>
-                  <Button mnemonicParsing="false" style="-fx-background-color: transparent; -fx-alignment: BASELINE_LEFT;" text="Payment" textFill="WHITE">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                  </Button>
-                  <Button mnemonicParsing="false" style="-fx-background-color: transparent; -fx-alignment: BASELINE_LEFT;" text="Seasonal Discounts" textFill="WHITE">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                  </Button>
-                  <Button mnemonicParsing="false" style="-fx-background-color: transparent; -fx-alignment: BASELINE_LEFT;" text="Feedback" textFill="WHITE">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                  </Button>
-                  <Button mnemonicParsing="false" style="-fx-background-radius: 5; -fx-background-color: #16213e; -fx-border-color: #e2b96f; -fx-border-radius: 10;" text="Logout" textFill="WHITE">
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
-                     <VBox.margin>
-                        <Insets left="70.0" top="430.0" />
-                     </VBox.margin>
-                  </Button>
+                            <font>
+                                <Font size="15.0" />
+                            </font>
+                        </Button>
+                        <Button mnemonicParsing="false" style="-fx-background-color: transparent; -fx-alignment: BASELINE_LEFT;" text="Payment" textFill="WHITE">
+                            <font>
+                                <Font size="15.0" />
+                            </font>
+                        </Button>
+                        <Button mnemonicParsing="false" style="-fx-background-color: transparent; -fx-alignment: BASELINE_LEFT;" text="Seasonal Discounts" textFill="WHITE">
+                            <font>
+                                <Font size="15.0" />
+                            </font>
+                        </Button>
+                        <Button mnemonicParsing="false" style="-fx-background-color: transparent; -fx-alignment: BASELINE_LEFT;" text="Feedback" textFill="WHITE">
+                            <font>
+                                <Font size="15.0" />
+                            </font>
+                        </Button>
+                        <Button mnemonicParsing="false" style="-fx-background-radius: 5; -fx-background-color: #16213e; -fx-border-color: #e2b96f; -fx-border-radius: 10;" text="Logout" textFill="WHITE">
+                            <font>
+                                <Font name="System Bold" size="12.0" />
+                            </font>
+                            <VBox.margin>
+                                <Insets left="70.0" top="430.0" />
+                            </VBox.margin>
+                        </Button>
                     </children>
                     <padding>
                         <Insets top="20.0" />
                     </padding>
                 </VBox>
-            <Separator prefHeight="944.0" prefWidth="0.0" style="-fx-background-color: #e2b96f;">
-               <padding>
-                  <Insets right="-7.0" />
-               </padding>
-            </Separator>
+                <Separator prefHeight="944.0" prefWidth="0.0" style="-fx-background-color: #e2b96f;">
+                    <padding>
+                        <Insets right="-7.0" />
+                    </padding>
+                </Separator>
             </children>
         </HBox>
     </left>
+
     <center>
         <VBox spacing="20.0" style="-fx-background-color: #1a1a2e; -fx-padding: 20;">
             <children>
@@ -93,43 +104,46 @@
                         <Font name="System Bold" size="24.0" />
                     </font>
                 </Label>
+
                 <Separator style="-fx-background-color: #e2b96f; -fx-pref-height: 1; -fx-max-width: Infinity;" />
+
                 <TabPane prefHeight="697.0" prefWidth="1137.0" style="-fx-background-color: #16213e; -fx-background-radius: 8; -fx-padding: 5;" tabClosingPolicy="UNAVAILABLE">
                     <tabs>
                         <Tab text="Revenue">
                             <content>
                                 <VBox maxHeight="647.0" prefHeight="647.0" prefWidth="1127.0" spacing="15.0" style="-fx-padding: 15;">
                                     <children>
-                                        <TableView prefHeight="612.0" prefWidth="1097.0" style="-fx-border-color: #e2b96f; -fx-background-color: #16213e; -fx-border-radius: 5;">
+                                        <TableView fx:id="revenueTable" prefHeight="612.0" prefWidth="1097.0" style="-fx-border-color: #e2b96f; -fx-background-color: #16213e; -fx-border-radius: 5;">
                                             <columns>
-                                                <TableColumn prefWidth="150.0" text="Date" />
-                                                <TableColumn prefWidth="150.0" text="Reservations" />
-                                                <TableColumn prefWidth="150.0" text="Subtotal" />
-                                                <TableColumn prefWidth="150.0" text="Tax" />
-                                                <TableColumn prefWidth="150.0" text="Discounts" />
-                                                <TableColumn prefWidth="150.0" text="Total" />
+                                                <TableColumn fx:id="revenueDateColumn" prefWidth="150.0" text="Date" />
+                                                <TableColumn fx:id="revenueReservationsColumn" prefWidth="150.0" text="Reservations" />
+                                                <TableColumn fx:id="revenueSubtotalColumn" prefWidth="150.0" text="Subtotal" />
+                                                <TableColumn fx:id="revenueTaxColumn" prefWidth="150.0" text="Tax" />
+                                                <TableColumn fx:id="revenueDiscountsColumn" prefWidth="150.0" text="Discounts" />
+                                                <TableColumn fx:id="revenueTotalColumn" prefWidth="150.0" text="Total" />
                                             </columns>
                                             <placeholder>
                                                 <Label text="No content in table" textFill="#7f8c8d" />
                                             </placeholder>
-                                 <VBox.margin>
-                                    <Insets />
-                                 </VBox.margin>
+                                            <VBox.margin>
+                                                <Insets />
+                                            </VBox.margin>
                                         </TableView>
                                     </children>
                                 </VBox>
                             </content>
                         </Tab>
+
                         <Tab text="Occupancy">
                             <content>
                                 <VBox spacing="15.0" style="-fx-padding: 15;">
                                     <children>
-                                        <TableView prefHeight="351.0" prefWidth="897.0" style="-fx-border-color: #e2b96f; -fx-background-color: #16213e; -fx-border-radius: 5;">
+                                        <TableView fx:id="occupancyTable" prefHeight="351.0" prefWidth="897.0" style="-fx-border-color: #e2b96f; -fx-background-color: #16213e; -fx-border-radius: 5;">
                                             <columns>
-                                                <TableColumn prefWidth="200.0" text="Date" />
-                                                <TableColumn prefWidth="150.0" text="Rooms Available" />
-                                                <TableColumn prefWidth="150.0" text="Rooms Occupied" />
-                                                <TableColumn prefWidth="150.0" text="Occupancy %" />
+                                                <TableColumn fx:id="occupancyDateColumn" prefWidth="200.0" text="Date" />
+                                                <TableColumn fx:id="roomsAvailableColumn" prefWidth="150.0" text="Rooms Available" />
+                                                <TableColumn fx:id="roomsOccupiedColumn" prefWidth="150.0" text="Rooms Occupied" />
+                                                <TableColumn fx:id="occupancyPercentColumn" prefWidth="150.0" text="Occupancy %" />
                                             </columns>
                                             <placeholder>
                                                 <Label text="No content in table" textFill="#7f8c8d" />
@@ -140,10 +154,11 @@
                             </content>
                         </Tab>
                     </tabs>
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin>
+                    <VBox.margin>
+                        <Insets />
+                    </VBox.margin>
                 </TabPane>
+
                 <HBox alignment="CENTER_LEFT" spacing="20.0">
                     <children>
                         <HBox alignment="CENTER" spacing="15.0">
@@ -152,38 +167,49 @@
                                     <font>
                                         <Font name="System Bold" size="15.0" />
                                     </font>
-                           <HBox.margin>
-                              <Insets left="400.0" />
-                           </HBox.margin>
+                                    <HBox.margin>
+                                        <Insets left="400.0" />
+                                    </HBox.margin>
                                 </Button>
+
                                 <Label text="Page 1 of 12" textFill="WHITE">
-                           <HBox.margin>
-                              <Insets />
-                           </HBox.margin>
-                        </Label>
+                                    <HBox.margin>
+                                        <Insets />
+                                    </HBox.margin>
+                                </Label>
+
                                 <Button mnemonicParsing="false" style="-fx-background-color: #e2b96f; -fx-text-fill: #1a1a2e; -fx-font-weight: bold; -fx-background-radius: 20; -fx-padding: 10 20;" text="Next">
                                     <font>
                                         <Font name="System Bold" size="15.0" />
                                     </font>
-                           <HBox.margin>
-                              <Insets />
-                           </HBox.margin>
+                                    <HBox.margin>
+                                        <Insets />
+                                    </HBox.margin>
                                 </Button>
                             </children>
                         </HBox>
+
                         <Region HBox.hgrow="ALWAYS" />
+
                         <HBox spacing="10.0">
                             <children>
-                                <Button mnemonicParsing="false" style="-fx-background-color: #4a6fa5; -fx-text-fill: white; -fx-background-radius: 5;" text="Export to CSV" />
-                                <Button mnemonicParsing="false" style="-fx-background-color: #4a6fa5; -fx-text-fill: white; -fx-background-radius: 5;" text="Export to PDF/TXT" />
+                                <Button mnemonicParsing="false"
+                                        onAction="#handleExportCsv"
+                                        style="-fx-background-color: #4a6fa5; -fx-text-fill: white; -fx-background-radius: 5;"
+                                        text="Export to CSV" />
+                                <Button mnemonicParsing="false"
+                                        onAction="#handleExportTxt"
+                                        style="-fx-background-color: #4a6fa5; -fx-text-fill: white; -fx-background-radius: 5;"
+                                        text="Export to PDF/TXT" />
                             </children>
                         </HBox>
                     </children>
                 </HBox>
             </children>
-         <BorderPane.margin>
-            <Insets />
-         </BorderPane.margin>
+
+            <BorderPane.margin>
+                <Insets />
+            </BorderPane.margin>
         </VBox>
     </center>
 </BorderPane>
