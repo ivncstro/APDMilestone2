@@ -121,16 +121,23 @@ public class ReservationService {
     public double calculateReservationTotal(Reservation reservation) {
         long nights = Math.max(1, ChronoUnit.DAYS.between(reservation.getCheckInDate(), reservation.getCheckOutDate()));
         double roomTotal = reservation.getRoom().getRoomType().getBasePrice() * nights;
-        double addOnTotal = reservationRepo.findAddOnsForReservation(reservation.getReservationId()).stream()
-                .mapToDouble(addOn -> {
-                    double unit = addOn.getAddOn().getPrice() * addOn.getQuantity();
-                    if ("PER_NIGHT".equalsIgnoreCase(addOn.getAddOn().getPricingType())) {
-                        unit *= nights;
-                    }
-                    return unit;
-                })
-                .sum();
-        double subtotal = roomTotal + addOnTotal;
+
+        // Ivan: Decorator for AddOns: Dynamic: changed: !hardcode
+        CostComponent cost = new BaseCost(roomTotal);
+
+        List<ReservationAddOn> addOns =
+                reservationRepo.findAddOnsForReservation(reservation.getReservationId());
+
+        for (ReservationAddOn addOn : addOns) {
+            cost = new AddOnCostDecorator(
+                    cost,
+                    addOn.getAddOn(),
+                    addOn.getQuantity(),
+                    nights
+            );
+        }
+
+        double subtotal = cost.getCost();
         return subtotal + (subtotal * 0.13);
     }
 
