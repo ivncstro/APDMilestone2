@@ -13,6 +13,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.util.StringConverter;
+import com.transylvania.service.ReportService;
+import javafx.stage.FileChooser;
+import java.io.File;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -22,6 +25,7 @@ public class AdminDashboardController {
 
     private final ReservationService reservationService = new ReservationService();
     private final ObservableList<ReservationRow> reservations = FXCollections.observableArrayList();
+    private final ReportService reportService = new ReportService();
 
     @FXML private TextField searchField;
     @FXML private DatePicker checkInFromPicker;
@@ -112,6 +116,50 @@ public class AdminDashboardController {
             refreshReservations();
         } catch (Exception e) {
             showError("Delete failed", e.getMessage());
+        }
+    }
+
+    @FXML
+    private void handleExportRevenueReport() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Save Revenue Report");
+        fileChooser.setInitialFileName("revenue_report.csv");
+        fileChooser.getExtensionFilters().add(
+                new FileChooser.ExtensionFilter("CSV Files", "*.csv")
+        );
+
+        File file = fileChooser.showSaveDialog(reservationTable.getScene().getWindow());
+        if (file == null) {
+            return;
+        }
+
+        try {
+            reportService.exportRevenueReportCsv(file.getAbsolutePath());
+            showInfo("Export successful", "Revenue report exported successfully.");
+        } catch (Exception e) {
+            showError("Export failed", e.getMessage());
+        }
+    }
+
+    @FXML
+    private void handleExportOccupancyReport() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Save Occupancy Report");
+        fileChooser.setInitialFileName("occupancy_report.csv");
+        fileChooser.getExtensionFilters().add(
+                new FileChooser.ExtensionFilter("CSV Files", "*.csv")
+        );
+
+        File file = fileChooser.showSaveDialog(reservationTable.getScene().getWindow());
+        if (file == null) {
+            return;
+        }
+
+        try {
+            reportService.exportOccupancyReportCsv(file.getAbsolutePath());
+            showInfo("Export successful", "Occupancy report exported successfully.");
+        } catch (Exception e) {
+            showError("Export failed", e.getMessage());
         }
     }
 
@@ -288,6 +336,13 @@ public class AdminDashboardController {
 
     private void showError(String header, String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setHeaderText(header);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
+    private void showInfo(String header, String message) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setHeaderText(header);
         alert.setContentText(message);
         alert.showAndWait();
