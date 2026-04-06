@@ -3,7 +3,7 @@ package com.transylvania.service;
 import com.transylvania.config.BookingRequest;
 import com.transylvania.model.*;
 import com.transylvania.repository.*;
-
+import com.transylvania.config.LoggerUtil;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
@@ -59,6 +59,15 @@ public class ReservationService {
 
         Reservation saved = reservationRepo.saveWithAddOns(reservation, addOnRows);
 
+        // Ivan: added log info (logging)
+        LoggerUtil.logInfo(
+                "guest",
+                "create_reservation",
+                "reservation",
+                String.valueOf(saved.getReservationId()),
+                "Reservation created for guest email: " + guest.getEmail()
+        );
+
         //confirmation code
         return String.format("RES-%06d", saved.getReservationId());
     }
@@ -90,7 +99,18 @@ public class ReservationService {
                 room
         );
 
-        return reservationRepo.saveOrUpdate(reservation);
+        Reservation saved = reservationRepo.saveOrUpdate(reservation);
+
+        // Ivan: log for admin creation (logging)
+        LoggerUtil.logInfo(
+                "admin",
+                "create_reservation",
+                "reservation",
+                String.valueOf(saved.getReservationId()),
+                "Admin created reservation for guest email: " + guest.getEmail()
+        );
+
+        return saved;
     }
 
     public Reservation updateReservation(Long reservationId, AdminReservationRequest request) {
@@ -109,13 +129,33 @@ public class ReservationService {
         existing.setChildren(request.children());
         existing.setStatus(request.status());
 
-        return reservationRepo.saveOrUpdate(existing);
+        Reservation updated = reservationRepo.saveOrUpdate(existing);
+
+        // Ivan: log for reservation updates (logging)
+        LoggerUtil.logInfo(
+                "admin",
+                "update_reservation",
+                "reservation",
+                String.valueOf(updated.getReservationId()),
+                "Admin updated reservation for guest email " + guest.getEmail()
+        );
+
+        return updated;
     }
 
     public void deleteReservation(Long reservationId) {
         Reservation existing = reservationRepo.findById(reservationId)
                 .orElseThrow(() -> new IllegalArgumentException("Reservation not found."));
         reservationRepo.deleteById(existing.getReservationId());
+
+        // Ivan: log reservation deletion (logging)
+        LoggerUtil.logInfo(
+                "admin",
+                "delete_reservation",
+                "reservation",
+                String.valueOf(existing.getReservationId()),
+                "Admin deleted reservation for guest email " + existing.getGuest().getEmail()
+        );
     }
 
     public double calculateReservationTotal(Reservation reservation) {
@@ -141,19 +181,48 @@ public class ReservationService {
         return subtotal + (subtotal * 0.13);
     }
 
+    // Ivan: updates for logging
     private void validateRequest(AdminReservationRequest request, Long reservationId) {
         if (request.firstName() == null || request.firstName().isBlank()
                 || request.lastName() == null || request.lastName().isBlank()) {
+            LoggerUtil.logWarning(
+                    "admin",
+                    "validate_reservation",
+                    "reservation",
+                    reservationId == null ? "new" : String.valueOf(reservationId),
+                    "Validation failed: guest name is required"
+            );
             throw new IllegalArgumentException("Guest first and last name are required.");
         }
         if (request.email() == null || request.email().isBlank()) {
+            LoggerUtil.logWarning(
+                    "admin",
+                    "validate_reservation",
+                    "reservation",
+                    reservationId == null ? "new" : String.valueOf(reservationId),
+                    "Validation failed: guest email is required"
+            );
             throw new IllegalArgumentException("Guest email is required.");
         }
         if (request.phone() == null || request.phone().isBlank()) {
+            LoggerUtil.logWarning(
+                    "admin",
+                    "validate_reservation",
+                    "reservation",
+                    reservationId == null ? "new" : String.valueOf(reservationId),
+                    "Validation failed: guest phone is required"
+            );
             throw new IllegalArgumentException("Guest phone is required.");
         }
         if (request.checkInDate() == null || request.checkOutDate() == null
                 || !request.checkOutDate().isAfter(request.checkInDate())) {
+            LoggerUtil.logWarning(
+                    "admin",
+                    "validate_reservation",
+                    "reservation",
+                    reservationId == null ? "new" : String.valueOf(reservationId),
+                    "Validation failed: invalid check-in/check-out dates"
+            );
             throw new IllegalArgumentException("Check-out must be after check-in.");
         }
         if (request.adults() < 1) {
