@@ -3,27 +3,43 @@ package com.transylvania.controller;
 import com.transylvania.config.BookingRequest;
 import com.transylvania.config.SceneNavigator;
 import com.transylvania.config.SceneNavigator.BookingAware;
+import com.transylvania.service.FeedbackService;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.Slider;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.control.Toggle;
+import javafx.scene.control.ToggleGroup;
 
 public class KioskFeedback implements BookingAware {
 
-    @FXML private TextField   phoneField;
-    @FXML private Button      star1, star2, star3, star4, star5;
-    @FXML private Slider      ratingSlider;
+    @FXML private TextField phoneField;
+    @FXML private Button star1;
+    @FXML private Button star2;
+    @FXML private Button star3;
+    @FXML private Button star4;
+    @FXML private Button star5;
+    @FXML private Slider ratingSlider;
     @FXML private ToggleGroup visitGroup;
-    @FXML private TextArea    commentsArea;
-    @FXML private Label       charCountLabel;
+    @FXML private TextArea commentsArea;
+    @FXML private Label charCountLabel;
+    @FXML private Label Stars;
 
     private int currentRating = 0;
     private static final int MAX_CHARS = 500;
+    private final FeedbackService feedbackService = new FeedbackService();
 
     @Override
-    public void setBookingRequest(BookingRequest request) { /* feedback is standalone */ }
+    public void setBookingRequest(BookingRequest request) {
+        // feedback remains a standalone screen
+    }
 
     @FXML
     public void initialize() {
-        // counter for characters from text
         commentsArea.textProperty().addListener((obs, old, val) -> {
             int len = val.length();
             if (len > MAX_CHARS) {
@@ -33,13 +49,12 @@ public class KioskFeedback implements BookingAware {
             }
         });
 
-        // syncs slider and stars
         ratingSlider.setMin(0);
         ratingSlider.setMax(5);
         ratingSlider.setBlockIncrement(1);
         ratingSlider.valueProperty().addListener((obs, old, val) -> {
-            int r = (int) Math.round(val.doubleValue());
-            setRating(r);
+            int rating = (int) Math.round(val.doubleValue());
+            setRating(rating);
         });
     }
 
@@ -52,7 +67,9 @@ public class KioskFeedback implements BookingAware {
     private void setRating(int rating) {
         currentRating = rating;
         ratingSlider.setValue(rating);
-        charCountLabel.getScene();
+        if (Stars != null) {
+            Stars.setText(rating + (rating == 1 ? " Star" : " Stars"));
+        }
 
         Button[] stars = {star1, star2, star3, star4, star5};
         for (int i = 0; i < stars.length; i++) {
@@ -63,32 +80,29 @@ public class KioskFeedback implements BookingAware {
 
     @FXML
     private void onSubmit() {
-        String phone    = phoneField.getText().trim();
+        String phone = phoneField.getText().trim();
         String comments = commentsArea.getText().trim();
         Toggle selected = visitGroup.getSelectedToggle();
         boolean visitAgain = selected != null
                 && "Yes".equals(((RadioButton) selected).getText());
 
+        try {
+            feedbackService.submitFeedback(phone, currentRating, visitAgain, comments);
 
-        if (phone.isEmpty()) {
-            alert("Please enter your phone number.");
-            return;
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setHeaderText("Thank you!");
+            alert.setContentText("Your feedback has been submitted.");
+            alert.showAndWait();
+
+            SceneNavigator.goToKioskMain();
+        } catch (IllegalArgumentException e) {
+            alert(e.getMessage());
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText("Feedback failed");
+            alert.setContentText("We could not save your feedback right now. Please try again.");
+            alert.showAndWait();
         }
-        if (currentRating == 0) {
-            alert("Please rate your stay (1–5 stars).");
-            return;
-        }
-
-        // logs and shows success
-        System.out.printf("Feedback submitted: phone=%s, rating=%d, visitAgain=%b, comments=%s%n",
-                phone, currentRating, visitAgain, comments);
-
-        Alert a = new Alert(Alert.AlertType.INFORMATION);
-        a.setHeaderText("Thank you!");
-        a.setContentText("Your feedback has been submitted.");
-        a.showAndWait();
-
-        SceneNavigator.goToKioskMain();
     }
 
     @FXML
@@ -96,10 +110,10 @@ public class KioskFeedback implements BookingAware {
         SceneNavigator.goToKioskMain();
     }
 
-    private void alert(String msg) {
-        Alert a = new Alert(Alert.AlertType.WARNING);
-        a.setHeaderText(null);
-        a.setContentText(msg);
-        a.showAndWait();
+    private void alert(String message) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 }

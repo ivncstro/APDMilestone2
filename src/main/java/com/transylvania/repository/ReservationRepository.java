@@ -174,6 +174,9 @@ public class ReservationRepository {
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();
+            em.createQuery("DELETE FROM Feedback f WHERE f.reservation.reservationId = :reservationId")
+                    .setParameter("reservationId", reservationId)
+                    .executeUpdate();
             em.createQuery("DELETE FROM ReservationAddOn ra WHERE ra.reservation.reservationId = :reservationId")
                     .setParameter("reservationId", reservationId)
                     .executeUpdate();
@@ -186,6 +189,35 @@ public class ReservationRepository {
                 tx.rollback();
             }
             throw new RuntimeException("Failed to delete reservation", e);
+        } finally {
+            em.close();
+        }
+    }
+
+    public Optional<Reservation> findLatestCheckedOutByPhoneWithoutFeedback(String phone) {
+        EntityManager em = JpaUtil.getEntityManager();
+        try {
+            List<Reservation> results = em.createQuery(
+                            "SELECT r FROM Reservation r " +
+                                    "JOIN FETCH r.guest g " +
+                                    "JOIN FETCH r.room room " +
+                                    "JOIN FETCH room.roomType " +
+                                    "WHERE g.phone = :phone " +
+                                    "  AND UPPER(r.status) = 'CHECKED_OUT' " +
+                                    "  AND r.checkOutDate <= :today " +
+                                    "  AND NOT EXISTS (" +
+                                    "      SELECT 1 FROM Feedback f WHERE f.reservation.reservationId = r.reservationId" +
+                                    "  ) " +
+                                    "ORDER BY r.checkOutDate DESC, r.reservationId DESC",
+                            Reservation.class)
+                    .setParameter("phone", phone)
+                    .setParameter("today", LocalDate.now())
+                    .setMaxResults(1)
+                    .getResultList();
+            return results.isEmpty() ? Optional.empty() : Optional.of(results.getFirst());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Optional.empty();
         } finally {
             em.close();
         }

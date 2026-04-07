@@ -170,7 +170,7 @@ public class AdminDashboardController {
     @FXML private void goToPayment() { SceneNavigator.goToAdminPayment(); }
     @FXML private void goToDiscounts() { SceneNavigator.goToAdminDiscounts(); }
     @FXML private void goToFeedback() { SceneNavigator.goToAdminFeedback(); }
-    @FXML private void logout() { SceneNavigator.goToAdminLogin(); }
+    @FXML private void logout() { SceneNavigator.goToKioskMain(); }
     @FXML private void goBack() { SceneNavigator.goToKioskMain(); }
 
     private void refreshReservations() {
@@ -250,6 +250,7 @@ public class AdminDashboardController {
                     ? reservationService.findAvailableRoomsForAdmin(checkIn, checkOut, totalGuests, existing == null ? null : existing.getReservationId())
                     : reservationService.findAllRooms();
             roomCombo.setItems(FXCollections.observableArrayList(options));
+
 
             if (previousSelection != null) {
                 roomCombo.getItems().stream()
