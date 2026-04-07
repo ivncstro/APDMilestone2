@@ -1,49 +1,45 @@
 package com.transylvania.repository;
 
 import com.transylvania.config.JpaUtil;
-import com.transylvania.model.AddOn;
+import com.transylvania.model.Discount;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
-
-import java.util.Collections;
 import java.util.List;
 
-public class AddOnRepository {
+public class DiscountRepository {
 
-    public void save(AddOn addOn) {
+    public void save(Discount discount) {
         EntityManager em = JpaUtil.getEntityManager();
         EntityTransaction tx = em.getTransaction();
-
         try {
             tx.begin();
-            em.persist(addOn);
+            if (discount.getId() == null) em.persist(discount);
+            else em.merge(discount);
             tx.commit();
-        } catch (Exception e) {
-            if (tx.isActive()) {
-                tx.rollback();
-            }
-            e.printStackTrace();
         } finally {
             em.close();
         }
     }
 
-    public List<AddOn> findAll() {
+    public List<Discount> findAll() {
         EntityManager em = JpaUtil.getEntityManager();
         try {
-            return em.createQuery("SELECT a FROM AddOn a", AddOn.class).getResultList();
+            return em.createQuery("SELECT d FROM Discount d", Discount.class).getResultList();
         } finally {
             em.close();
         }
     }
 
-    public AddOn findById(Long id) {
+    public void deleteById(Long id) {
         EntityManager em = JpaUtil.getEntityManager();
+        EntityTransaction tx = em.getTransaction();
         try {
-            return em.find(AddOn.class, id);
+            tx.begin();
+            Discount d = em.find(Discount.class, id);
+            if (d != null) em.remove(d);
+            tx.commit();
         } finally {
             em.close();
         }
     }
 }
-

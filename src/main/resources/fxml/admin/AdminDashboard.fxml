@@ -60,17 +60,16 @@
                         <TableView fx:id="reservationTable" prefHeight="565.0" prefWidth="1097.0" style="-fx-border-color: #e2b96f; -fx-background-color: #1a1a2e; -fx-border-radius: 5;">
                             <columns>
                                 <TableColumn fx:id="reservationIdColumn" prefWidth="112.0" text="ReservationID" />
-                                <TableColumn fx:id="guestColumn" prefWidth="81.0" text="Guest" />
-                                <TableColumn fx:id="phoneColumn" prefWidth="76.66668701171875" text="Phone" />
-                                <TableColumn fx:id="checkInColumn" prefWidth="101.0" text="Check-in" />
-                                <TableColumn fx:id="checkOutColumn" prefWidth="83.33331298828125" text="Check-out" />
-                                <TableColumn fx:id="roomsColumn" prefWidth="120.0" text="Rooms" />
-                                <TableColumn fx:id="totalColumn" prefWidth="90.66668701171875" text="Total" />
-                                <TableColumn fx:id="balanceColumn" prefWidth="98.0" text="Balance / Due" />
-                                <TableColumn fx:id="statusColumn" minWidth="0.0" prefWidth="70.99993896484375" text="Status" />
-                        <TableColumn fx:id="discountColumn" prefWidth="74.3333740234375" text="Discount" />
-                        <TableColumn fx:id="paymentMethodColumn" prefWidth="133.666748046875" text="Payment Method" />
-                        <TableColumn fx:id="loyaltyColumn" prefWidth="127.333251953125" text="Loyalty Member" />
+                                <TableColumn fx:id="guestColumn" prefWidth="107.0" text="Guest" />
+                                <TableColumn fx:id="phoneColumn" prefWidth="98.0" text="Phone" />
+                                <TableColumn fx:id="checkInColumn" prefWidth="74.6666259765625" text="Check-in" />
+                                <TableColumn fx:id="checkOutColumn" prefWidth="92.3333740234375" text="Check-out" />
+                                <TableColumn fx:id="roomsColumn" prefWidth="77.33331298828125" text="Rooms" />
+                                <TableColumn fx:id="totalColumn" prefWidth="91.6666259765625" text="Total" />
+                                <TableColumn fx:id="balanceColumn" prefWidth="111.33331298828125" text="Balance / Due" />
+                                <TableColumn fx:id="statusColumn" minWidth="0.0" prefWidth="122.33331298828125" text="Status" />
+                        <TableColumn fx:id="discountColumn" prefWidth="76.0" text="Discount" />
+                        <TableColumn fx:id="loyaltyColumn" prefWidth="155.0" text="Loyalty Member" />
                             </columns>
                             <placeholder>
                                 <Label prefHeight="30.0" prefWidth="118.0" text="No reservations found" textFill="#7f8c8d" />
@@ -147,10 +146,10 @@
                   </Button>
                   <Button mnemonicParsing="false" onAction="#logout" style="-fx-background-radius: 5; -fx-background-color: #16213e; -fx-border-color: #e2b96f; -fx-border-radius: 10;" text="Logout" textFill="WHITE">
                      <font>
-                        <Font name="System Bold" size="12.0" />
+                        <Font name="System Bold" size="15.0" />
                      </font>
                      <VBox.margin>
-                        <Insets left="70.0" top="430.0" />
+                        <Insets left="60.0" top="430.0" />
                      </VBox.margin>
                   </Button>
                    </children>

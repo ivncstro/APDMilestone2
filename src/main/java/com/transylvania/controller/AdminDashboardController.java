@@ -5,6 +5,8 @@ import com.transylvania.model.Reservation;
 import com.transylvania.model.Room;
 import com.transylvania.service.ReservationService;
 import com.transylvania.service.ReservationService.AdminReservationRequest;
+import com.transylvania.model.LoyaltyMember;
+import com.transylvania.service.LoyaltyService;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -16,7 +18,6 @@ import javafx.util.StringConverter;
 import com.transylvania.service.ReportService;
 import javafx.stage.FileChooser;
 import java.io.File;
-
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -42,7 +43,6 @@ public class AdminDashboardController {
     @FXML private TableColumn<ReservationRow, String> balanceColumn;
     @FXML private TableColumn<ReservationRow, String> statusColumn;
     @FXML private TableColumn<ReservationRow, String> discountColumn;
-    @FXML private TableColumn<ReservationRow, String> paymentMethodColumn;
     @FXML private TableColumn<ReservationRow, String> loyaltyColumn;
 
     @FXML
@@ -60,7 +60,6 @@ public class AdminDashboardController {
         balanceColumn.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().balanceDue()));
         statusColumn.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().status()));
         discountColumn.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().discount()));
-        paymentMethodColumn.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().paymentMethod()));
         loyaltyColumn.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().loyaltyMember()));
 
         reservationTable.setItems(reservations);
@@ -170,7 +169,7 @@ public class AdminDashboardController {
     @FXML private void goToPayment() { SceneNavigator.goToAdminPayment(); }
     @FXML private void goToDiscounts() { SceneNavigator.goToAdminDiscounts(); }
     @FXML private void goToFeedback() { SceneNavigator.goToAdminFeedback(); }
-    @FXML private void logout() { SceneNavigator.goToKioskMain(); }
+    @FXML private void logout() { SceneNavigator.goToAdminLogin(); }
     @FXML private void goBack() { SceneNavigator.goToKioskMain(); }
 
     private void refreshReservations() {
@@ -191,7 +190,22 @@ public class AdminDashboardController {
 
     private ReservationRow toRow(Reservation reservation) {
         double total = reservationService.calculateReservationTotal(reservation);
-        String roomLabel = "Room " + reservation.getRoom().getRoomNumber() + " - " + reservation.getRoom().getRoomType().getTypeName();
+        double discountPercent = reservation.getDiscountPercent() != null ? reservation.getDiscountPercent() : 0.0;
+        String discountStr = discountPercent > 0 ? String.format("%.0f%%", discountPercent) : "0%";
+        double paymentsReceived = 0.0;  // replace with actual payment sum when payment tracking is added
+        double balance = total - paymentsReceived;
+        if (balance < 0.01) balance = 0.0;
+        String balanceStr = formatCurrency(balance);
+        String loyaltyStr = "No";
+        LoyaltyService loyaltyService = new LoyaltyService();
+        LoyaltyMember member = loyaltyService.findByGuest(reservation.getGuest());
+        if (member != null) {
+            loyaltyStr = "Yes (" + member.getLoyaltyNumber() + ")";
+        }
+
+        String roomLabel = "Room " + reservation.getRoom().getRoomNumber()
+                + " - " + reservation.getRoom().getRoomType().getTypeName();
+
         return new ReservationRow(
                 reservation,
                 reservation.getReservationId(),
@@ -201,11 +215,10 @@ public class AdminDashboardController {
                 reservation.getCheckOutDate(),
                 roomLabel,
                 formatCurrency(total),
-                formatCurrency(total),
+                balanceStr,
                 reservation.getStatus(),
-                "N/A",
-                "Front Desk",
-                "No"
+                discountStr,
+                loyaltyStr
         );
     }
 
@@ -229,16 +242,11 @@ public class AdminDashboardController {
         roomCombo.setConverter(new StringConverter<>() {
             @Override
             public String toString(Room room) {
-                if (room == null) {
-                    return "";
-                }
+                if (room == null) return "";
                 return "Room " + room.getRoomNumber() + " - " + room.getRoomType().getTypeName() + " (cap " + room.getRoomType().getCapacity() + ")";
             }
-
             @Override
-            public Room fromString(String string) {
-                return null;
-            }
+            public Room fromString(String string) { return null; }
         });
 
         Runnable reloadRooms = () -> {
@@ -250,7 +258,6 @@ public class AdminDashboardController {
                     ? reservationService.findAvailableRoomsForAdmin(checkIn, checkOut, totalGuests, existing == null ? null : existing.getReservationId())
                     : reservationService.findAllRooms();
             roomCombo.setItems(FXCollections.observableArrayList(options));
-
 
             if (previousSelection != null) {
                 roomCombo.getItems().stream()
@@ -289,10 +296,7 @@ public class AdminDashboardController {
 
         dialog.getDialogPane().setContent(grid);
         dialog.setResultConverter(button -> {
-            if (button != ButtonType.OK) {
-                return null;
-            }
-
+            if (button != ButtonType.OK) return null;
             Room selectedRoom = roomCombo.getValue();
             return new AdminReservationRequest(
                     firstNameField.getText(),
@@ -361,7 +365,6 @@ public class AdminDashboardController {
             String balanceDue,
             String status,
             String discount,
-            String paymentMethod,
             String loyaltyMember
     ) {}
 }

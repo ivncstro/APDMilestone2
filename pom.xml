@@ -54,13 +54,6 @@
             <artifactId>javafx-fxml</artifactId>
             <version>25</version>
         </dependency>
-
-        <!-- security admin -->
-        <dependency>
-            <groupId>org.mindrot</groupId>
-            <artifactId>jbcrypt</artifactId>
-            <version>0.4</version>
-        </dependency>
     </dependencies>
 
     <build>

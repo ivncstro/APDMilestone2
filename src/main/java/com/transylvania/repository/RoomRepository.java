@@ -2,6 +2,7 @@ package com.transylvania.repository;
 
 import com.transylvania.config.JpaUtil;
 import com.transylvania.model.Room;
+import com.transylvania.service.RoomAvailabilityNotifier;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 
@@ -46,8 +47,8 @@ public class RoomRepository {
                                     "  ) " +
                                     "ORDER BY r.roomType.basePrice ASC",
                             Room.class)
-                    .setParameter("guests",   totalGuests)
-                    .setParameter("checkIn",  checkIn)
+                    .setParameter("guests", totalGuests)
+                    .setParameter("checkIn", checkIn)
                     .setParameter("checkOut", checkOut)
                     .getResultList();
         } catch (Exception e) {
@@ -121,6 +122,28 @@ public class RoomRepository {
         } catch (Exception e) {
             e.printStackTrace();
             return Collections.emptyList();
+        } finally {
+            em.close();
+        }
+    }
+
+
+    public void updateRoomStatus(Room room, String newStatus) {
+        EntityManager em = JpaUtil.getEntityManager();
+        EntityTransaction tx = em.getTransaction();
+        try {
+            tx.begin();
+            Room managed = em.find(Room.class, room.getRoomId());
+            String oldStatus = managed.getStatus();
+            managed.setStatus(newStatus);
+            em.merge(managed);
+            tx.commit();
+            if (!"AVAILABLE".equals(oldStatus) && "AVAILABLE".equals(newStatus)) {
+                RoomAvailabilityNotifier.getInstance().notifyRoomAvailable(managed);
+            }
+        } catch (Exception e) {
+            if (tx.isActive()) tx.rollback();
+            e.printStackTrace();
         } finally {
             em.close();
         }

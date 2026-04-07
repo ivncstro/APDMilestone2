@@ -42,6 +42,14 @@ public class ReservationService {
                     return g;
                 });
 
+        if (request.isLoyaltyEnroll()) {
+            LoyaltyService loyaltyService = new LoyaltyService();
+            LoyaltyMember existing = loyaltyService.findByGuest(guest);
+            if (existing == null) {
+                loyaltyService.enroll(guest);
+            }
+        }
+
         Reservation reservation = new Reservation(
                 request.getCheckIn(),
                 request.getCheckOut(),
@@ -309,4 +317,24 @@ public class ReservationService {
             Long roomId,
             String status
     ) {}
+    public Reservation saveOrUpdate(Reservation reservation) {
+        return reservationRepo.saveOrUpdate(reservation);
+    }
+    public Reservation findById(Long id) {
+        return reservationRepo.findById(id).orElse(null);
+    }
+
+    public double calculateAddOnsTotal(Reservation reservation) {
+        List<ReservationAddOn> addOns = reservationRepo.findAddOnsForReservation(reservation.getReservationId());
+        long nights = ChronoUnit.DAYS.between(reservation.getCheckInDate(), reservation.getCheckOutDate());
+        double total = 0;
+        for (ReservationAddOn rao : addOns) {
+            double unit = rao.getAddOn().getPrice() * rao.getQuantity();
+            if ("PER_NIGHT".equalsIgnoreCase(rao.getAddOn().getPricingType())) {
+                unit *= nights;
+            }
+            total += unit;
+        }
+        return total;
+    }
 }

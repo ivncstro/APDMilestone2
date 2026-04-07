@@ -35,6 +35,11 @@ public class Reservation {
     @JoinColumn(name = "room_id", nullable = false)
     private Room room;
 
+    @Column(name = "discount_percent")
+    private Double discountPercent = 0.0;
+
+
+
     public Reservation() {}
 
     public Reservation(LocalDate checkInDate, LocalDate checkOutDate, String status,
@@ -47,6 +52,9 @@ public class Reservation {
         this.guest = guest;
         this.room = room;
     }
+    public Double getDiscountPercent() { return discountPercent; }
+
+    public void setDiscountPercent(Double discountPercent) { this.discountPercent = discountPercent; }
 
     public Long getReservationId() {
         return reservationId;

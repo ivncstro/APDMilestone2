@@ -1,345 +1,205 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Separator?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1180.0" prefWidth="1400.0" style="-fx-background-color: #ecf0f1;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1400.0" style="-fx-background-color: #ecf0f1;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.transylvania.controller.AdminPaymentController">
     <left>
         <HBox>
             <children>
-                <VBox maxHeight="1180.0" minHeight="1036.0" prefHeight="1004.0" prefWidth="200.0" spacing="10.0" style="-fx-background-color: #16213e; -fx-padding: 20 10 20 10;">
+                <VBox prefHeight="900.0" prefWidth="200.0" spacing="10.0" style="-fx-background-color: #16213e; -fx-padding: 20 10 20 10;">
                     <children>
                         <Label text="Hotel Transilvania" textFill="white" wrapText="true">
-                            <font>
-                                <Font name="System Bold" size="16.0" />
-                            </font>
+                            <font><Font name="System Bold" size="16.0" /></font>
                         </Label>
                         <Separator style="-fx-background-color: #7f8c8d;" />
-                        <Button mnemonicParsing="false" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-alignment: BASELINE_LEFT;" text="Dashboard">
+                        <Button onAction="#goToDashboard" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-alignment: BASELINE_LEFT;" text="Dashboard">
                      <font>
                         <Font size="15.0" />
-                     </font>
-                  </Button>
-                        <Button mnemonicParsing="false" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-alignment: BASELINE_LEFT;" text="Waitlist">
+                     </font></Button>
+                        <Button onAction="#goToWaitlist" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-alignment: BASELINE_LEFT;" text="Waitlist">
                      <font>
                         <Font size="15.0" />
-                     </font>
-                  </Button>
-                        <Button mnemonicParsing="false" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-alignment: BASELINE_LEFT;" text="Loyalty Program">
+                     </font></Button>
+                        <Button onAction="#goToLoyalty" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-alignment: BASELINE_LEFT;" text="Loyalty Program">
                      <font>
                         <Font size="15.0" />
-                     </font>
-                  </Button>
-                        <Button mnemonicParsing="false" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-alignment: BASELINE_LEFT;" text="Reports">
+                     </font></Button>
+                        <Button onAction="#goToReports" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-alignment: BASELINE_LEFT;" text="Reports">
                      <font>
                         <Font size="15.0" />
-                     </font>
-                  </Button>
-                  <Button mnemonicParsing="false" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-alignment: BASELINE_LEFT;" text="Activity Log">
+                     </font></Button>
+                        <Button onAction="#goToLog" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-alignment: BASELINE_LEFT;" text="Activity Log">
                      <font>
                         <Font size="15.0" />
-                     </font>
-                  </Button>
-                        <Button mnemonicParsing="false" style="-fx-background-color: #e2b96f; -fx-alignment: BASELINE_LEFT;" text="Checkout / Payment">
-                     <font>
-                        <Font name="System Bold" size="15.0" />
-                     </font>
-                  </Button>
-                  <Button mnemonicParsing="false" style="-fx-background-color: transparent; -fx-alignment: BASELINE_LEFT;" text="Seasonal Discounts" textFill="WHITE">
+                     </font></Button>
+                        <Button onAction="#goToPayment" style="-fx-background-color: #e2b96f; -fx-alignment: BASELINE_LEFT;" text="Checkout / Payment">
+                            <font><Font size="15.0" /></font>
+                        </Button>
+                        <Button onAction="#goToDiscounts" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-alignment: BASELINE_LEFT;" text="Seasonal Discounts">
                      <font>
                         <Font size="15.0" />
-                     </font>
-                  </Button>
-                        <Button mnemonicParsing="false" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-alignment: BASELINE_LEFT;" text="Feedback">
+                     </font></Button>
+                        <Button onAction="#goToFeedback" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-alignment: BASELINE_LEFT;" text="Feedback">
                      <font>
                         <Font size="15.0" />
-                     </font>
-                  </Button>
-                  <Button mnemonicParsing="false" style="-fx-background-radius: 5; -fx-background-color: #16213e; -fx-border-color: #e2b96f; -fx-border-radius: 10;" text="Logout" textFill="WHITE">
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
-                     <VBox.margin>
-                        <Insets left="70.0" top="720.0" />
-                     </VBox.margin>
-                  </Button>
+                     </font></Button>
+                        <Button onAction="#logout" style="-fx-background-radius: 5; -fx-background-color: #16213e; -fx-border-color: #e2b96f; -fx-border-radius: 10;" text="Logout" textFill="WHITE">
+                            <font><Font name="System Bold" size="15.0" /></font>
+                            <VBox.margin><Insets left="60.0" top="430.0" /></VBox.margin>
+                        </Button>
                     </children>
-                    <padding>
-                        <Insets top="20.0" />
-                    </padding>
+                    <padding><Insets top="20.0" /></padding>
                 </VBox>
-            <Separator maxHeight="1180.0" maxWidth="1.0" minHeight="1180.0" minWidth="1.0" prefHeight="1180.0" prefWidth="3.0" style="-fx-background-color: #e2b96f; -fx-pref-height: 1; -fx-max-width: Infinity;" />
+                <Separator prefHeight="915.0" prefWidth="0.0" style="-fx-background-color: #e2b96f;">
+                    <padding><Insets right="-7.0" /></padding>
+                </Separator>
             </children>
         </HBox>
     </left>
     <center>
-        <VBox maxHeight="1180.0" maxWidth="1400.0" minHeight="905.0" minWidth="1087.0" prefHeight="905.0" prefWidth="1218.0" spacing="20.0" style="-fx-background-color: #1a1a2e; -fx-padding: 20;">
+        <VBox spacing="20.0" style="-fx-background-color: #1a1a2e; -fx-padding: 20;">
             <children>
-                <Label text="Admin Dashboard • Payment" textFill="#e2b96f">
-                    <font>
-                        <Font name="System Bold" size="24.0" />
-                    </font>
+                <Label text="Admin Dashboard • Checkout / Payment" textFill="#e2b96f">
+                    <font><Font name="System Bold" size="24.0" /></font>
                 </Label>
                 <Separator style="-fx-background-color: #e2b96f; -fx-pref-height: 1; -fx-max-width: Infinity;" />
-                <VBox maxHeight="800.0" minHeight="743.0" prefHeight="759.0" prefWidth="1157.0" spacing="20.0" style="-fx-background-color: #16213e; -fx-background-radius: 8; -fx-padding: 20; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 5, 0, 0, 2);">
-                    <children>
-                        <Label text="Select Reservation" textFill="WHITE">
-                            <font>
-                                <Font name="System Bold" size="18.0" />
-                            </font>
+
+                <HBox spacing="20.0" VBox.vgrow="ALWAYS">
+                    <!-- Left: Guest selection -->
+                    <VBox spacing="15.0" style="-fx-background-color: #16213e; -fx-background-radius: 8; -fx-padding: 20;" HBox.hgrow="ALWAYS">
+                        <Label text="Select Checked‑In Guest" textFill="WHITE">
+                            <font><Font name="System Bold" size="16.0" /></font>
                         </Label>
-                        <HBox alignment="CENTER_LEFT" spacing="10.0">
-                            <children>
-                                <TextField promptText="Search by guest name, phone, or reservation ID" style="-fx-background-radius: 5;" HBox.hgrow="ALWAYS" />
-                                <Button mnemonicParsing="false" style="-fx-background-color: #4a6fa5; -fx-text-fill: white; -fx-background-radius: 5;" text="Search" />
-                            </children>
+                        <HBox spacing="10.0">
+                            <TextField fx:id="guestSearchField" promptText="Search by name, phone, or reservation ID" HBox.hgrow="ALWAYS" />
+                            <Button onAction="#searchGuests" style="-fx-background-color: #4a6fa5; -fx-text-fill: white; -fx-background-radius: 5;" text="Search" />
                         </HBox>
-                        <ComboBox promptText="Recent checked‑in reservations" style="-fx-background-radius: 5;" />
-
-                        <Separator style="-fx-background-color: #7f8c8d;" />
-                        <Label text="Reservation Details" textFill="WHITE">
-                            <font>
-                                <Font name="System Bold" size="16.0" />
-                            </font>
-                        </Label>
-                        <GridPane hgap="20.0" vgap="10.0">
-                            <columnConstraints>
-                                <ColumnConstraints halignment="RIGHT" maxWidth="150.0" minWidth="120.0" prefWidth="120.0" />
-                                <ColumnConstraints hgrow="ALWAYS" maxWidth="300.0" minWidth="200.0" />
-                                <ColumnConstraints halignment="RIGHT" maxWidth="150.0" minWidth="120.0" prefWidth="120.0" />
-                                <ColumnConstraints hgrow="ALWAYS" maxWidth="300.0" minWidth="200.0" />
-                            </columnConstraints>
-                            <rowConstraints>
-                                <RowConstraints minHeight="30.0" vgrow="SOMETIMES" />
-                                <RowConstraints minHeight="30.0" vgrow="SOMETIMES" />
-                                <RowConstraints minHeight="30.0" vgrow="SOMETIMES" />
-                            </rowConstraints>
-
-                            <Label text="Guest Name:" textFill="#bdc3c7" GridPane.columnIndex="0" GridPane.rowIndex="0">
-                        <font>
-                           <Font size="15.0" />
-                        </font></Label>
-                            <Label text="John Doe" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="0">
-                        <font>
-                           <Font size="15.0" />
-                        </font></Label>
-
-                            <Label text="Reservation ID:" textFill="#bdc3c7" GridPane.columnIndex="2" GridPane.rowIndex="0">
-                        <font>
-                           <Font size="15.0" />
-                        </font></Label>
-                            <Label text="TRV-123456" textFill="WHITE" GridPane.columnIndex="3" GridPane.rowIndex="0">
-                        <font>
-                           <Font size="15.0" />
-                        </font></Label>
-
-                            <Label text="Check-in:" textFill="#bdc3c7" GridPane.columnIndex="0" GridPane.rowIndex="1">
-                        <font>
-                           <Font size="15.0" />
-                        </font></Label>
-                            <Label text="2025 - 06 - 10" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                        <font>
-                           <Font size="15.0" />
-                        </font></Label>
-
-                            <Label text="Check-out:" textFill="#bdc3c7" GridPane.columnIndex="2" GridPane.rowIndex="1">
-                        <font>
-                           <Font size="15.0" />
-                        </font></Label>
-                            <Label text="2025 - 06 - 15" textFill="WHITE" GridPane.columnIndex="3" GridPane.rowIndex="1">
-                        <font>
-                           <Font size="15.0" />
-                        </font></Label>
-
-                            <Label text="Rooms:" textFill="#bdc3c7" GridPane.columnIndex="0" GridPane.rowIndex="2">
-                        <font>
-                           <Font size="15.0" />
-                        </font></Label>
-                            <Label text="2 x Double Room" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                        <font>
-                           <Font size="15.0" />
-                        </font></Label>
-
-                            <Label text="Status:" textFill="#bdc3c7" GridPane.columnIndex="2" GridPane.rowIndex="2">
-                        <font>
-                           <Font size="15.0" />
-                        </font></Label>
-                            <Label text="Payment Ongoing" textFill="WHITE" GridPane.columnIndex="3" GridPane.rowIndex="2">
-                        <font>
-                           <Font size="15.0" />
-                        </font></Label>
-                        </GridPane>
-
-                        <Separator style="-fx-background-color: #7f8c8d;" />
-                        <Label text="Bill Summary" textFill="WHITE">
-                            <font>
-                                <Font name="System Bold" size="16.0" />
-                            </font>
-                        </Label>
-                        <GridPane hgap="20.0" vgap="8.0">
-                            <columnConstraints>
-                                <ColumnConstraints halignment="LEFT" hgrow="ALWAYS" />
-                                <ColumnConstraints halignment="RIGHT" minWidth="100.0" />
-                            </columnConstraints>
-                            <rowConstraints>
-                                <RowConstraints />
-                                <RowConstraints />
-                                <RowConstraints />
-                                <RowConstraints />
-                                <RowConstraints />
-                                <RowConstraints />
-                                <RowConstraints />
-                            </rowConstraints>
-                            <Label text="Room charges" textFill="#bdc3c7" GridPane.rowIndex="0">
-                        <font>
-                           <Font size="15.0" />
-                        </font></Label>
-                            <Label text="/$0.00" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="0">
-                        <font>
-                           <Font size="15.0" />
-                        </font></Label>
-                            <Label text="Add‑ons" textFill="#bdc3c7" GridPane.rowIndex="1">
-                        <font>
-                           <Font size="15.0" />
-                        </font></Label>
-                            <Label text="/$0.00" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                        <font>
-                           <Font size="15.0" />
-                        </font></Label>
-
-                            <Label text="Subtotal" textFill="#bdc3c7" GridPane.rowIndex="2">
-                        <font>
-                           <Font size="15.0" />
-                        </font></Label>
-                            <Label text="/$0.00" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                        <font>
-                           <Font size="15.0" />
-                        </font></Label>
-                            <Label text="Tax" textFill="#bdc3c7" GridPane.rowIndex="3">
-                        <font>
-                           <Font size="15.0" />
-                        </font></Label>
-                            <Label text="/$0.00" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="3">
-                        <font>
-                           <Font size="15.0" />
-                        </font></Label>
-                            <Label text="Discounts applied" textFill="#bdc3c7" GridPane.rowIndex="4">
-                        <font>
-                           <Font size="15.0" />
-                        </font></Label>
-                            <Label text="/$0.00" textFill="#e2b96f" GridPane.columnIndex="1" GridPane.rowIndex="4">
-                        <font>
-                           <Font size="15.0" />
-                        </font></Label>
-
-                            <Separator style="-fx-background-color: #7f8c8d;" GridPane.columnSpan="2" GridPane.rowIndex="5" />
-
-                            <Label style="-fx-font-weight: bold;" text="Total" textFill="WHITE" GridPane.rowIndex="6">
-                                <font>
-                                    <Font size="16.0" />
-                                </font>
-                            </Label>
-                            <Label style="-fx-font-weight: bold;" text="/$0.00" textFill="#e2b96f" GridPane.columnIndex="1" GridPane.rowIndex="6">
-                        <font>
-                           <Font size="15.0" />
-                        </font></Label>
-                        </GridPane>
-                        <Label text="Payments Received" textFill="#bdc3c7">
-                     <font>
-                        <Font size="15.0" />
-                     </font></Label>
-                        <TableView prefHeight="100.0" style="-fx-border-color: #e2b96f; -fx-background-color: #16213e; -fx-border-radius: 5;">
+                        <TableView fx:id="guestTable" prefHeight="623.0" prefWidth="689.0" style="-fx-border-color: #e2b96f;">
                             <columns>
-                                <TableColumn prefWidth="120.0" text="Date" />
-                                <TableColumn prefWidth="100.0" text="Method" />
-                                <TableColumn prefWidth="100.0" text="Amount" />
+                                <TableColumn fx:id="guestNameColumn" prefWidth="150.0" text="Guest Name" />
+                                <TableColumn fx:id="guestPhoneColumn" prefWidth="120.0" text="Phone" />
+                                <TableColumn fx:id="reservationIdColumn" prefWidth="100.0" text="Reservation ID" />
+                                <TableColumn fx:id="checkOutColumn" prefWidth="100.0" text="Check-out" />
                             </columns>
-                            <placeholder>
-                                <Label text="No payments recorded" textFill="#7f8c8d" />
-                            </placeholder>
+                            <placeholder><Label text="No checked‑in guests" textFill="#7f8c8d" /></placeholder>
                         </TableView>
-                        <HBox alignment="CENTER_RIGHT" spacing="10.0">
-                            <children>
-                                <Label style="-fx-font-weight: bold;" text="Outstanding Balance:" textFill="#bdc3c7" />
-                                <Label style="-fx-font-weight: bold;" text="/$0.00" textFill="#e2b96f">
-                                    <font>
-                                        <Font size="18.0" />
-                                    </font>
-                                </Label>
-                            </children>
-                        </HBox>
-                        <Separator style="-fx-background-color: #7f8c8d;" />
-                        <Label text="Settle Balance" textFill="WHITE">
-                            <font>
-                                <Font name="System Bold" size="18.0" />
-                            </font>
-                        </Label>
-                        <GridPane hgap="15.0" vgap="10.0">
-                            <columnConstraints>
-                                <ColumnConstraints halignment="RIGHT" maxWidth="150.0" minWidth="120.0" prefWidth="120.0" />
-                                <ColumnConstraints hgrow="ALWAYS" minWidth="200.0" />
-                                <ColumnConstraints maxWidth="150.0" minWidth="100.0" />
-                            </columnConstraints>
-                            <rowConstraints>
-                                <RowConstraints />
-                                <RowConstraints />
-                                <RowConstraints />
-                            </rowConstraints>
+                    </VBox>
 
-                            <Label text="Payment Method" textFill="#bdc3c7" GridPane.rowIndex="0">
-                        <font>
-                           <Font size="15.0" />
-                        </font></Label>
-                            <ComboBox prefWidth="200.0" promptText="Select method" style="-fx-background-radius: 5;" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-                            <Label text="Amount to Pay" textFill="#bdc3c7" GridPane.rowIndex="1">
-                        <font>
-                           <Font size="15.0" />
-                        </font></Label>
-                            <TextField promptText="Enter amount" style="-fx-background-radius: 5;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                            <Button mnemonicParsing="false" style="-fx-background-color: #2d3748; -fx-text-fill: white; -fx-background-radius: 5;" text="Full Balance" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                            <Label text="Reference / Notes" textFill="#bdc3c7" GridPane.rowIndex="2">
-                        <font>
-                           <Font size="15.0" />
-                        </font></Label>
-                            <TextField promptText="Optional (e.g., card last 4 digits)" style="-fx-background-radius: 5;" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2" />
+                    <!-- Right: Reservation & Payment details -->
+                    <VBox spacing="15.0" style="-fx-background-color: #16213e; -fx-background-radius: 8; -fx-padding: 20;" HBox.hgrow="ALWAYS">
+                        <Label text="Reservation Details" textFill="WHITE">
+                            <font><Font name="System Bold" size="16.0" /></font>
+                        </Label>
+                        <GridPane hgap="15.0" vgap="8.0">
+                            <Label text="Guest:" textFill="#bdc3c7" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                            <Label fx:id="guestNameLabel" text="-" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                            <Label text="Reservation ID:" textFill="#bdc3c7" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                            <Label fx:id="reservationIdLabel" text="-" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                            <Label text="Room:" textFill="#bdc3c7" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                            <Label fx:id="roomLabel" text="-" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                            <Label text="Check-in:" textFill="#bdc3c7" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+                            <Label fx:id="checkInLabel" text="-" textFill="WHITE" GridPane.columnIndex="3" GridPane.rowIndex="0" />
+                            <Label text="Check-out:" textFill="#bdc3c7" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                            <Label fx:id="checkOutLabel" text="-" textFill="WHITE" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                            <Label text="Status:" textFill="#bdc3c7" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                            <Label fx:id="statusLabel" text="-" textFill="WHITE" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                     <columnConstraints>
+                        <ColumnConstraints />
+                        <ColumnConstraints />
+                        <ColumnConstraints />
+                        <ColumnConstraints />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                     </rowConstraints>
+                        </GridPane>
+
+                        <Separator style="-fx-background-color: #7f8c8d;" />
+
+                        <Label text="Bill Summary" textFill="WHITE">
+                            <font><Font name="System Bold" size="16.0" /></font>
+                        </Label>
+                        <GridPane hgap="15.0" vgap="5.0">
+                            <Label text="Room charges:" textFill="#bdc3c7" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                            <Label fx:id="roomChargeLabel" text="\$0.00" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                            <Label text="Add-ons:" textFill="#bdc3c7" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                            <Label fx:id="addOnsLabel" text="\$0.00" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                            <Label text="Subtotal:" textFill="#bdc3c7" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                            <Label fx:id="subtotalLabel" text="\$0.00" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                            <Label text="Tax (13%):" textFill="#bdc3c7" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                            <Label fx:id="taxLabel" text="\$0.00" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                            <Label text="Discount:" textFill="#bdc3c7" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+                            <HBox spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                                <TextField fx:id="discountField" prefWidth="60" promptText="0" />
+                                <Button onAction="#applyDiscount" style="-fx-background-color: #e2b96f;" text="Apply">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font></Button>
+                            </HBox>
+                            <Label text="Total after discount:" textFill="#e2b96f" GridPane.columnIndex="0" GridPane.rowIndex="5">
+                                <font><Font name="System Bold" size="14.0" /></font>
+                            </Label>
+                            <Label fx:id="totalLabel" text="\$0.00" textFill="#e2b96f" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                                <font><Font name="System Bold" size="14.0" /></font>
+                            </Label>
+                     <columnConstraints>
+                        <ColumnConstraints />
+                        <ColumnConstraints />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                     </rowConstraints>
+                        </GridPane>
+
+                        <Separator style="-fx-background-color: #7f8c8d;" />
+
+                        <Label text="Record Payment" textFill="WHITE">
+                            <font><Font name="System Bold" size="16.0" /></font>
+                        </Label>
+                        <GridPane hgap="15.0" vgap="8.0">
+                            <Label text="Payment Method:" textFill="#bdc3c7" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                            <ComboBox fx:id="paymentMethodCombo" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                            <Button onAction="#useAllPoints" text="Use All Points" style="-fx-background-color: #e2b96f;" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
+                            <Label text="Amount:" textFill="#bdc3c7" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                            <TextField fx:id="amountField" promptText="Enter amount" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                            <Button onAction="#setFullAmount" style="-fx-background-color: #2d3748;" text="Full Balance" textFill="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                            <Label text="Reference:" textFill="#bdc3c7" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                            <TextField fx:id="referenceField" promptText="Card last 4 digits / notes" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2" />
+                     <columnConstraints>
+                        <ColumnConstraints />
+                        <ColumnConstraints />
+                        <ColumnConstraints />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                     </rowConstraints>
                         </GridPane>
                         <HBox alignment="CENTER_RIGHT" spacing="15.0">
-                            <children>
-                                <Button mnemonicParsing="false" style="-fx-background-color: #2d3748; -fx-text-fill: white; -fx-background-radius: 5; -fx-padding: 10 20;" text="Record Payment">
-                           <font>
-                              <Font name="System Bold" size="15.0" />
-                           </font></Button>
-                                <Button mnemonicParsing="false" style="-fx-background-color: #e2b96f; -fx-background-radius: 5; -fx-padding: 10 30;" text="Checkout">
-                                    <font>
-                                        <Font name="System Bold" size="15.0" />
-                                    </font>
-                                </Button>
-                            </children>
+                            <Button onAction="#recordPayment" style="-fx-background-color: #2d3748; -fx-padding: 10 20;" text="Record Payment" textFill="WHITE">
+                                <font><Font name="System Bold" size="14.0" /></font>
+                            </Button>
+                            <Button onAction="#checkout" style="-fx-background-color: #e2b96f; -fx-padding: 10 30;" text="Checkout">
+                                <font><Font name="System Bold" size="14.0" /></font>
+                            </Button>
                         </HBox>
                         <HBox spacing="10.0" style="-fx-background-color: #2d3748; -fx-background-radius: 5; -fx-padding: 10;">
-                            <children>
-                                <Label style="-fx-font-size: 20;" text="💬" textFill="#e2b96f" />
-                                <Label text="Reminder: After checkout, invite guest to submit feedback at the kiosk." textFill="WHITE" wrapText="true">
-                           <font>
-                              <Font size="15.0" />
-                           </font></Label>
-                            </children>
+                            <Label style="-fx-font-size: 20;" text="💬" textFill="#e2b96f" />
+                            <Label text="After checkout, invite guest to submit feedback at the kiosk." textFill="WHITE" wrapText="true" />
                         </HBox>
-                    </children>
-                </VBox>
+                    </VBox>
+                </HBox>
             </children>
         </VBox>
     </center>
